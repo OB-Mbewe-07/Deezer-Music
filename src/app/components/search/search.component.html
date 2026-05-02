@@ -1,0 +1,44 @@
+<div class="scrollbar-hide h-screen overflow-y-scroll snap-y snap-mandatory">
+  <section class="h-screen snap-start">
+    <div class="landingDivContainer">
+      <div class="flex">
+        <img
+          src="https://img.icons8.com/?size=100&id=uEdXEgELNafT&format=png&color=000000"
+          alt="logo"
+        />
+        <img
+          src="https://img.icons8.com/?size=120&id=zQBiTJTC1Gj0&format=png&color=000000"
+          alt="logo"
+        />
+      </div>
+
+      <p-floatlabel variant="on" class="landindLabel">
+        <input
+          pInputText
+          id="on_label"
+          [(ngModel)]="search"
+          (ngModelChange)="exploreDataService.getAllInformationSearch($event)"
+          (keyup.enter)="router.navigate(['/search-results'], { queryParams: { q: search } })"
+          autocomplete="off"
+          class="landingInput"
+          style="border-radius: 24px"
+        />
+        <label for="on_label">Artists, Records & Albums</label>
+        <button class="landingButton" (click)="run(); runSearch()">
+          <i class="pi pi-arrow-right" style="font-size: 13px"></i>
+        </button>
+      </p-floatlabel>
+      <div class="flex gap-[2%]">
+        <p-badge value="Drake" style="white-space: nowrap" />
+        <p-badge value="Mavrick City" style="white-space: nowrap" />
+        <p-badge value="Elevation worship" style="white-space: nowrap" />
+        <div class="hidden sm:block">
+          <p-badge value="The Weekend" style="white-space: nowrap" />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="h-screen snap-start">
+    @if (exploreData) {}
+  </section>
+</div>
