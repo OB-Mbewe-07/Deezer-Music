@@ -17,8 +17,8 @@
           pInputText
           id="on_label"
           [(ngModel)]="search"
-          (ngModelChange)="exploreDataService.getAllInformationSearch($event)"
-          (keyup.enter)="router.navigate(['/search-results'], { queryParams: { q: search } })"
+          (ngModelChange)="runSearch()"
+          (keyup.enter)="runSearch(); router.navigate(['/search-results'], { queryParams: { q: search } });"
           autocomplete="off"
           class="landingInput"
           style="border-radius: 24px"

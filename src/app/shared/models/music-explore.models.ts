@@ -79,3 +79,9 @@ export interface Podcast {
   picture_medium: string;
   type: string;
 }
+
+export interface DeezerSearchResponse {
+  tracks: { data: Track[] };
+  artists: { data: Artist[] };
+  albums: { data: Album[] };
+}

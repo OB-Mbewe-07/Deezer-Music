@@ -54,16 +54,7 @@ export class LandingPageComponent {
 
   runSearch() {
     if (this.search) {
-      this.exploreDataService.search$.subscribe({
-        next: (data) => {
-          console.log(data);
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      });
-    }else{
-      console.log("nothing")
+      this.exploreDataService.getAllInformationSearch(this.search);
     }
   }
 }
