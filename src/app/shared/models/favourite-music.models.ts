@@ -5,6 +5,7 @@ export interface Playlist {
   name: string;
   tracks: Track[];
   albums: Album[];
+  image?: string; 
 }
 
 export interface PlaylistState {

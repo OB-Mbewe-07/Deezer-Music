@@ -4,6 +4,7 @@ import { ArtistsAlbumTracksComponent } from './components/search-results/search-
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { AlbumComponent } from './components/album/album.component';
+import { UserComponent } from './components/user/user.component';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,10 @@ export const routes: Routes = [
   {
     path: 'search-results',
     component: ArtistsAlbumTracksComponent,
+  },
+  {
+    path: 'profile',
+    component: UserComponent,
   },
   {
     path: 'artist/:id',
