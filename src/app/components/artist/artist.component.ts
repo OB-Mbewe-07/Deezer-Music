@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class ArtistComponent implements OnInit, OnDestroy {
+    //TODO: add logic to ensure that I have full access to all tracks in this artists work
   private musicApi = inject(MusicExploreService);
   private cdr = inject(ChangeDetectorRef);
   private route = inject(ActivatedRoute);

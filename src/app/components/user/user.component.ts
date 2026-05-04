@@ -8,12 +8,11 @@ import { MusicFormatService } from '../../shared/services/music-explore/music-ex
   standalone: true,
   templateUrl: './user.component.html',
 })
-export class UserComponent implements OnInit{
+export class UserComponent implements OnInit {
   private store = inject(FavouritesStore);
   private musicFormat = inject(MusicFormatService);
-  totalSeconds: number = 0;
-  playlists : Playlist[] = [];
-  activeplaylist: Playlist | null = null; 
+  playlists: Playlist[] = [];
+  activeplaylist: Playlist | null = null;
   defaultUser: UserProfile = {
     id: '',
     name: 'Guest',
@@ -27,18 +26,19 @@ export class UserComponent implements OnInit{
     this.playlists = this.store.playlists();
   }
 
-  setActivePlaylist(playlist: Playlist): void{
+  setActivePlaylist(playlist: Playlist): void {
     this.activeplaylist = playlist;
-    this.totalSeconds = playlist.tracks.reduce((acc, track) => acc + track.duration, 0);
   }
 
-  formatDuration(seconds: number): string{
-    return this.musicFormat.formatDuration(seconds); 
+  formatDuration(seconds: number): string {
+    return this.musicFormat.formatDuration(seconds);
   }
 
-  getTotalTime(): string{
-    const strTime = this.musicFormat.formatDuration(this.totalSeconds); 
-
-    return strTime;
+  getTotalTime(): string {
+    let totalSeconds = 0;
+    for (const playlist of this.playlists) {
+      totalSeconds += playlist.tracks.reduce((acc, track) => acc + track.duration, 0);
+    }
+    return this.musicFormat.formatDuration(totalSeconds);
   }
 }

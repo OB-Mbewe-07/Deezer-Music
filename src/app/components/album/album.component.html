@@ -33,7 +33,7 @@
             >
               <img [src]="album.cover_small" class="w-10 h-10 rounded-lg object-cover" />
               <div class="flex flex-col flex-1 min-w-0">
-                <span class="text-sm font-medium truncate">{{ track.title }}</span>
+                <span class="text-sm font-medium truncate">{{track.title}}</span>
                 <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
               </div>
               <span class="text-xs opacity-40">{{ formatDuration(track.duration) }}</span>
