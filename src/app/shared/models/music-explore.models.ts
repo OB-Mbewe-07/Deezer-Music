@@ -91,3 +91,8 @@ export interface ArtistDetailsResponse {
   albums: { data: Album[] };
   tracks: { data: Track[] };
 }
+
+export interface AlbumDetailsResponse {
+  album: Album;
+  tracks: { data: Track[] };
+}

@@ -30,6 +30,7 @@
             <div
               class="flex flex-col gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
               style="width: 120px"
+              (click)="router.navigate(['/album', album.id])"
             >
               <img
                 [src]="album.cover_medium"
