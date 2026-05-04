@@ -1,28 +1,15 @@
-<app-nav></app-nav>
-@if (results) {
+@if (artist) {
   <div class="p-6">
-    @if (artists.length) {
-      <section class="mb-8">
-        <h2 class="text-lg font-semibold mb-3 opacity-60">Artists</h2>
-        <div class="flex gap-4 overflow-x-auto pb-2">
-          @for (artist of artists; track artist.id) {
-            <div
-              class="flex flex-col items-center gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
-              (click)="router.navigate(['/artist', artist.id])"
-            >
-              <img
-                [src]="artist.picture_medium"
-                class="w-40 h-40 rounded-full object-cover"
-                style="border: 1px solid var(--p-inputtext-border-color)"
-              />
-              <span class="text-xs font-medium text-center w-16 truncate">{{ artist.name }}</span>
-            </div>
-          }
-        </div>
-      </section>
-    }
+    <div class="flex flex-col items-center m-8">
+      <img
+        [src]="artist.picture_medium"
+        class="w-40 h-40 rounded-full object-cover"
+        style="border: 1px solid var(--p-inputtext-border-color)"
+      />
+      <h3 class="text-xl font-semibold m-[2%]">{{ artist.name }}</h3>
+    </div>
 
-    @if (albums.length) {
+    @if (albums && albums.length) {
       <section class="mb-8">
         <h2 class="text-lg font-semibold mb-3 opacity-60">Albums</h2>
         <div class="flex gap-4 overflow-x-auto pb-2">
@@ -30,7 +17,6 @@
             <div
               class="flex flex-col gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
               style="width: 120px"
-              (click)="router.navigate(['/album', album.id])"
             >
               <img
                 [src]="album.cover_medium"
@@ -45,7 +31,7 @@
       </section>
     }
 
-    @if (tracks.length) {
+    @if (tracks && tracks.length) {
       <section class="mb-8">
         <h2 class="text-lg font-semibold mb-3 opacity-60">Tracks</h2>
         <div
@@ -56,10 +42,10 @@
             overflow: hidden;
           "
         >
-          @for (track of tracks; track track.id) {
+          @for (track of tracks; track track.id; let last = $last) {
             <div
               class="flex items-center gap-4 px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
-              [style.border-bottom]="'1px solid var(--p-inputtext-border-color)'"
+              [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
             >
               <img [src]="track.album.cover_small" class="w-10 h-10 rounded-lg object-cover" />
               <div class="flex flex-col flex-1 min-w-0">
@@ -72,9 +58,5 @@
         </div>
       </section>
     }
-  </div>
-} @else {
-  <div class="flex items-center justify-center h-64 opacity-40">
-    <span class="text-sm">No results yet</span>
   </div>
 }

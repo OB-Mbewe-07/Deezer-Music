@@ -85,3 +85,14 @@ export interface DeezerSearchResponse {
   artists: { data: Artist[] };
   albums: { data: Album[] };
 }
+
+export interface ArtistDetailsResponse {
+  artist: Artist;
+  albums: { data: Album[] };
+  tracks: { data: Track[] };
+}
+
+export interface AlbumDetailsResponse {
+  album: Album;
+  tracks: { data: Track[] };
+}
