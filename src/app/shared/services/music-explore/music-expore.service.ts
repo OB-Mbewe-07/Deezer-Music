@@ -10,7 +10,14 @@ import {
   shareReplay,
   switchMap,
 } from 'rxjs';
-import { Album, Artist, DeezerChartResponse, DeezerSearchResponse, Track } from '../../models/music-explore.models';
+import {
+  Album,
+  Artist,
+  ArtistDetailsResponse,
+  DeezerChartResponse,
+  DeezerSearchResponse,
+  Track,
+} from '../../models/music-explore.models';
 
 @Injectable({
   providedIn: 'root',
@@ -43,12 +50,18 @@ export class MusicExploreService {
   getAllInformationSearch(query: string) {
     this.searchSubject.next(query);
   }
-
+  getArtistById(id: number): Observable<ArtistDetailsResponse> {
+    return forkJoin({
+      artist: this.http.get<Artist>(`/deezer-api/artist/${id}`),
+      albums: this.http.get<{data: Album[]}>(`/deezer-api/artist/${id}/albums`),
+      tracks: this.http.get<{data: Track[]}>(`/deezer-api/artist/${id}/top?limit=10`),
+    });
+  }
   searchAll(query: string): Observable<DeezerSearchResponse> {
     return forkJoin({
-      tracks: this.http.get<{data: Track[]}>(`/deezer-api/search/track?q=${query}`),
-      artists: this.http.get<{data: Artist[]}>(`/deezer-api/search/artist?q=${query}`),
-      albums: this.http.get<{data: Album[]}>(`/deezer-api/search/album?q=${query}`),
+      tracks: this.http.get<{ data: Track[] }>(`/deezer-api/search/track?q=${query}`),
+      artists: this.http.get<{ data: Artist[] }>(`/deezer-api/search/artist?q=${query}`),
+      albums: this.http.get<{ data: Album[] }>(`/deezer-api/search/album?q=${query}`),
     });
   }
 

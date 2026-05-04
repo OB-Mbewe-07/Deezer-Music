@@ -10,9 +10,10 @@ import { CommonModule } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter, Subscription, switchMap } from 'rxjs';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
 
 @Component({
   templateUrl: './search-result.component.html',
@@ -23,7 +24,9 @@ export class ArtistsAlbumTracksComponent implements OnInit, OnDestroy{
   private information = inject(MusicExploreService);
   private route = inject(ActivatedRoute);
   private cdr = inject(ChangeDetectorRef);
+  private musicFormat = inject(MusicFormatService);
   private subscription = new Subscription();
+  router = inject(Router);
   results: DeezerSearchResponse | undefined = undefined;
   tracks: Track[] = [];
   artists: Artist[] = [];
@@ -49,9 +52,7 @@ export class ArtistsAlbumTracksComponent implements OnInit, OnDestroy{
   }
 
   formatDuration(seconds: number): string {
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
-    return `${min}:${sec.toString().padStart(2, '0')}`;
+    return this.musicFormat.formatDuration(seconds);
   }
 
   ngOnDestroy(): void {
