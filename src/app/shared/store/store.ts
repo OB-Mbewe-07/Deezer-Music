@@ -3,7 +3,18 @@ import { Playlist, PlaylistState } from '../models/favourite-music.models';
 import { Album, Track } from '../models/music-explore.models';
 
 const initialState: PlaylistState = {
-  playlists: [],
+  playlists: [
+    {
+      id: crypto.randomUUID(),
+      name: 'My First Playlist',
+      tracks: [
+        { id: 1, title: 'God Did', title_short: 'God Did', duration: 234, rank: 1, preview: '', link: '', artist: { id: 1, name: 'DJ Khaled' }, album: { id: 1, title: 'God Did', cover_small: '', cover_medium: '', cover_big: '', cover_xl: '', cover: '', link: '', type: 'album' }, type: 'track' },
+        { id: 2, title: 'Rich Flex', title_short: 'Rich Flex', duration: 201, rank: 2, preview: '', link: '', artist: { id: 2, name: 'Drake' }, album: { id: 2, title: 'Her Loss', cover_small: '', cover_medium: '', cover_big: '', cover_xl: '', cover: '', link: '', type: 'album' }, type: 'track' },
+        { id: 3, title: 'Die For You', title_short: 'Die For You', duration: 260, rank: 3, preview: '', link: '', artist: { id: 3, name: 'The Weeknd' }, album: { id: 3, title: 'Starboy', cover_small: '', cover_medium: '', cover_big: '', cover_xl: '', cover: '', link: '', type: 'album' }, type: 'track' },
+      ],
+      albums: [],
+    }
+  ]
 };
 
 export const FavouritesStore = signalStore(
