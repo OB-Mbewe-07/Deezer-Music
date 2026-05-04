@@ -5,6 +5,7 @@ import { Album, Track } from '../models/music-explore.models';
 const initialState: PlaylistState = {
   playlists: [],
 };
+
 export const FavouritesStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
@@ -26,39 +27,55 @@ export const FavouritesStore = signalStore(
 
     renamePlaylist(id: string, name: string) {
       patchState(store, {
-        playlists: store.playlists().map((playlist) => (playlist.id === id ? { ...playlist, name } : playlist)),
+        playlists: store
+          .playlists()
+          .map((playlist) => (playlist.id === id ? { ...playlist, name } : playlist)),
       });
     },
 
     addTrackToPlaylist(playlistId: string, track: Track) {
       patchState(store, {
-        playlists: store.playlists().map(playlist =>
-          playlist.id === playlistId ? { ...playlist, tracks: [...playlist.tracks, track] } : playlist
-        )
+        playlists: store
+          .playlists()
+          .map((playlist) =>
+            playlist.id === playlistId
+              ? { ...playlist, tracks: [...playlist.tracks, track] }
+              : playlist,
+          ),
       });
     },
 
     removeTrackFromPlaylist(playlistId: string, trackId: number) {
       patchState(store, {
-        playlists: store.playlists().map(playlist =>
-          playlist.id === playlistId ? { ...playlist, tracks: playlist.tracks.filter(t => t.id !== trackId) } : playlist
-        )
+        playlists: store
+          .playlists()
+          .map((playlist) =>
+            playlist.id === playlistId
+              ? { ...playlist, tracks: playlist.tracks.filter((track) => track.id !== trackId) }
+              : playlist,
+          ),
       });
     },
 
     addAlbumToPlaylist(playlistId: string, album: Album) {
       patchState(store, {
-        playlists: store.playlists().map(playlist =>
-          playlist.id === playlistId ? { ...playlist, albums: [...playlist.albums, album] } : playlist
-        )
+        playlists: store
+          .playlists()
+          .map((playlist) =>
+            playlist.id === playlistId
+              ? { ...playlist, albums: [...playlist.albums, album] }
+              : playlist,
+          ),
       });
     },
 
     removeAlbumFromPlaylist(playlistId: string, albumId: number) {
       patchState(store, {
-        playlists: store.playlists().map(p =>
-          p.id === playlistId ? { ...p, albums: p.albums.filter(a => a.id !== albumId) } : p
-        )
+        playlists: store
+          .playlists()
+          .map((playlist) =>
+            playlist.id === playlistId ? { ...playlist, albums: playlist.albums.filter((album) => album.id !== albumId) } : playlist,
+          ),
       });
     },
   })),
