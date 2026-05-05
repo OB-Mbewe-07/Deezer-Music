@@ -1,3 +1,4 @@
+<app-button/>
 <div class="p-6">
   <div class="flex flex-col items-center m-8">
     <img
@@ -12,7 +13,7 @@
         class="flex flex-col items-center px-6 py-3 rounded-2xl"
         style="border: 1px solid var(--p-inputtext-border-color)"
       >
-        <span class="text-2xl font-bold">{{ playlists.length }}</span>
+        <span class="text-2xl font-bold">{{ playlists().length }}</span>
         <span class="text-xs opacity-50">Playlists</span>
       </div>
       <div
@@ -23,12 +24,11 @@
         <span class="text-xs opacity-50">Total Time</span>
       </div>
     </div>
-
-    @if (playlists && playlists.length) {
+    @if (playlists() && playlists().length) {
       <section class="mb-8">
         <h2 class="text-lg font-semibold mb-3 opacity-60">Albums</h2>
         <div class="flex gap-4 overflow-x-auto pb-2">
-          @for (playlist of playlists; track playlist.id) {
+          @for (playlist of playlists(); track playlist.id) {
             <div
               class="flex flex-col gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
               style="width: 120px"
