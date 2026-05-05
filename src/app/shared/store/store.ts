@@ -91,6 +91,7 @@ export const FavouritesStore = signalStore(
       const playlists = await db.getAll();
       patchState(store, { playlists });
     },
+    
     async createPlaylist(name: string) {
       const playlist: Playlist = {
         id: crypto.randomUUID(),
