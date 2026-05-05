@@ -1,4 +1,31 @@
 @if (album) {
+  <p-dialog
+    [(visible)]="showAddTrack"
+    header="Add to Playlist"
+    [modal]="true"
+    [style]="{ width: '400px' }"
+  >
+    <div
+      class="flex flex-col"
+      style="
+        border: 1px solid var(--p-inputtext-border-color);
+        border-radius: 16px;
+        overflow: hidden;
+      "
+    >
+      @for (playlist of playlists(); track playlist.id; let last = $last) {
+        <div
+          class="flex items-center justify-between px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
+          [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
+          (click)="setAddToPlaylist(playlist)"
+          []
+        >
+          <span class="text-sm font-medium">{{ playlist.name }}</span>
+          <i class="pi pi-trash opacity-50" style="font-size: 13px"></i>
+        </div>
+      }
+    </div>
+  </p-dialog>
   <div class="p-6">
     <div class="flex justify-center p-6 h-full">
       <div
@@ -36,7 +63,19 @@
                 <span class="text-sm font-medium truncate">{{track.title}}</span>
                 <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
               </div>
-              <span class="text-xs opacity-40">{{ formatDuration(track.duration) }}</span>
+              <span
+                  class="text-xs opacity-40"
+                  (mouseenter)="hoveredTrackId = track.id"
+                  (mouseleave)="hoveredTrackId = null"
+                >
+                  @if (hoveredTrackId === track.id) {
+                    <div (click)="setActiveTrack(track); showAddTrackDialog();">
+                      <img src="bookmark-plus.svg" alt="trash icon" class="w-6 h-6 invert" />
+                    </div>
+                  } @else {
+                    {{ formatDuration(track.duration) }}
+                  }
+                </span>
             </div>
           }
         </div>

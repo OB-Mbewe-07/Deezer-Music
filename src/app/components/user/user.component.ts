@@ -29,9 +29,11 @@ export class UserComponent {
   setActivePlaylist(playlist: Playlist): void {
     this.activeplaylist = this.playlists().find(p => p.id === playlist.id) ?? null;
   }
+  
   formatDuration(seconds: number): string {
     return this.musicFormat.formatDuration(seconds);
   }
+
   getTotalTime(): string {
     let totalSeconds = 0;
     for (const playlist of this.playlists()) {
