@@ -30,6 +30,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
   showAddTrack: boolean = false;
   activeTrack: Track | null = null;
   hoveredTrackId: number | null = null;
+  releaseDate : string = ""
   ngOnInit(): void {
     this.subscription.add(
       this.route.params.subscribe((params) => {
@@ -43,6 +44,9 @@ export class AlbumComponent implements OnInit, OnDestroy {
           next: (data) => {
             this.album = data.album;
             this.tracks = data.tracks.data;
+            if(this.tracks){
+              this.releaseDate = this.playlistService.findReleaseDate(this.tracks);
+            }
             this.cdr.detectChanges();
           },
           error: (err) => {
@@ -63,7 +67,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
       this.showAddTrack = false;
     }else{
       //means the song exists in the playlist
-      
+
     }
   }
 

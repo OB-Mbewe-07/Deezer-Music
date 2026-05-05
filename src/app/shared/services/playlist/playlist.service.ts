@@ -13,4 +13,13 @@ export class PlaylistService{
     existsInPlaylist(playlist: Playlist,track: Track): boolean{
         return !!playlist.tracks.find(t => t.id === track.id)
     }
+
+    findReleaseDate(tracks: Track[]): string{
+        for(const track of tracks){
+            if(track.release_date){
+                return "Released: " + track.release_date;
+            }
+        }
+        return "No release date";
+    }
 }
