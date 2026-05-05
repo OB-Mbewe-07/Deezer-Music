@@ -1,4 +1,4 @@
-<app-button/>
+<app-button />
 <div class="p-6">
   <div class="flex flex-col items-center m-8">
     <img
@@ -78,7 +78,26 @@
                   <span class="text-sm font-medium truncate">{{ track.title }}</span>
                   <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
                 </div>
-                <span class="text-xs opacity-40">{{ formatDuration(track.duration) }}</span>
+
+                <span
+                  class="text-xs opacity-40"
+                  (mouseenter)="hoveredTrackId = track.id"
+                  (mouseleave)="hoveredTrackId = null"
+                >
+                  @if (hoveredTrackId === track.id) {
+                    <div (click)="deleteTrack()">
+                      <img src="trash.svg" alt="trash icon" class="w-6 h-6 invert" />
+                    </div>
+                  } @else {
+                    {{ formatDuration(track.duration) }}
+                  }
+                </span>
+              </div>
+            }
+
+            @if (activeplaylist.tracks.length === 0) {
+              <div>
+                <p>No Songs yet</p>
               </div>
             }
           </div>

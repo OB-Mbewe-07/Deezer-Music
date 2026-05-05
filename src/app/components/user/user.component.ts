@@ -3,17 +3,19 @@ import { UserProfile } from '../../shared/models/user-data.model';
 import { FavouritesStore } from '../../shared/store/store';
 import { Playlist } from '../../shared/models/favourite-music.models';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
-import { CreatePlaylistButtonComponent } from "../button-playlist/button-playlist.component";
+import { CreatePlaylistButtonComponent } from '../button-playlist/button-playlist.component';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
   templateUrl: './user.component.html',
-  imports: [CreatePlaylistButtonComponent],
+  imports: [CreatePlaylistButtonComponent, ButtonModule],
 })
-export class UserComponent{
+export class UserComponent {
   private store = inject(FavouritesStore);
   private musicFormat = inject(MusicFormatService);
   playlists = this.store.playlists;
+  hoveredTrackId: number | null = null;
   activeplaylist: Playlist | null = null;
   defaultUser: UserProfile = {
     id: '',
@@ -25,12 +27,11 @@ export class UserComponent{
   };
 
   setActivePlaylist(playlist: Playlist): void {
-    this.activeplaylist = playlist;
+    this.activeplaylist = this.playlists().find(p => p.id === playlist.id) ?? null;
   }
   formatDuration(seconds: number): string {
     return this.musicFormat.formatDuration(seconds);
   }
-
   getTotalTime(): string {
     let totalSeconds = 0;
     for (const playlist of this.playlists()) {
@@ -38,4 +39,11 @@ export class UserComponent{
     }
     return this.musicFormat.formatDuration(totalSeconds);
   }
+
+  deleteTrack() {
+    if (this.activeplaylist && this.hoveredTrackId) {
+      this.store.removeTrackFromPlaylist(this.activeplaylist.id, this.hoveredTrackId);
+      this.setActivePlaylist(this.activeplaylist);
+    };
+  };
 }
