@@ -3,16 +3,20 @@ import { UserProfile } from '../../shared/models/user-data.model';
 import { FavouritesStore } from '../../shared/store/store';
 import { Playlist } from '../../shared/models/favourite-music.models';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
+import { CreatePlaylistButtonComponent } from '../button-playlist/button-playlist.component';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
   templateUrl: './user.component.html',
+  imports: [CreatePlaylistButtonComponent, ButtonModule],
 })
-export class UserComponent implements OnInit{
+export class UserComponent {
   private store = inject(FavouritesStore);
   private musicFormat = inject(MusicFormatService);
-  playlists : Playlist[] = [];
-  activeplaylist: Playlist | null = null; 
+  playlists = this.store.playlists;
+  hoveredTrackId: number | null = null;
+  activeplaylist: Playlist | null = null;
   defaultUser: UserProfile = {
     id: '',
     name: 'Guest',
@@ -22,15 +26,26 @@ export class UserComponent implements OnInit{
     totalFavourites: 0,
   };
 
-  ngOnInit(): void {
-    this.playlists = this.store.playlists();
+  setActivePlaylist(playlist: Playlist): void {
+    this.activeplaylist = this.playlists().find(p => p.id === playlist.id) ?? null;
+  }
+  
+  formatDuration(seconds: number): string {
+    return this.musicFormat.formatDuration(seconds);
   }
 
-  setActivePlaylist(playlist: Playlist): void{
-    this.activeplaylist = playlist;
+  getTotalTime(): string {
+    let totalSeconds = 0;
+    for (const playlist of this.playlists()) {
+      totalSeconds += playlist.tracks.reduce((acc, track) => acc + track.duration, 0);
+    }
+    return this.musicFormat.formatDuration(totalSeconds);
   }
 
-  formatDuration(seconds: number): string{
-    return this.musicFormat.formatDuration(seconds); 
-  }
+  deleteTrack() {
+    if (this.activeplaylist && this.hoveredTrackId) {
+      this.store.removeTrackFromPlaylist(this.activeplaylist.id, this.hoveredTrackId);
+      this.setActivePlaylist(this.activeplaylist);
+    };
+  };
 }

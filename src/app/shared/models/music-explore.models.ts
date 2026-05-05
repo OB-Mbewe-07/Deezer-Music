@@ -16,6 +16,8 @@ export interface Track {
   preview: string;
   artist: Partial<Artist>;
   album: Partial<Album>;
+  track_position?: number;
+  release_date?: string;
   type: string;
 }
 
