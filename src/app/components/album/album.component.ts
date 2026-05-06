@@ -10,14 +10,18 @@ import { Playlist } from '../../shared/models/favourite-music.models';
 import { ButtonModule } from 'primeng/button';
 import { PlaylistService } from '../../shared/services/playlist/playlist.service';
 import { NowPlayingService } from '../../shared/services/music-player/music-player';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   standalone: true,
   templateUrl: './album.component.html',
-  imports: [DialogModule, ButtonModule],
+  imports: [DialogModule, ButtonModule, ToastModule],
+  providers: [MessageService],
 })
 export class AlbumComponent implements OnInit, OnDestroy {
   private store = inject(FavouritesStore);
+  private messageService = inject(MessageService);
   private playlistService = inject(PlaylistService);
   private musicApi = inject(MusicExploreService);
   private musicFormat = inject(MusicFormatService);
@@ -59,17 +63,25 @@ export class AlbumComponent implements OnInit, OnDestroy {
     }
   }
 
+  showToast() {
+    this.messageService.add({ severity: 'success', summary: 'Exists' , detail: 'Song Exists in Album' });
+  }
+
   showAddTrackDialog() {
     this.showAddTrack = true;
+  }
+
+  closeDialog(){
+    this.showAddTrack = false;
   }
 
   setAddToPlaylist(playlist: Playlist) {
     if (this.activeTrack && !this.playlistService.existsInPlaylist(playlist, this.activeTrack)) {
       this.store.addTrackToPlaylist(playlist.id, this.activeTrack);
-      this.showAddTrack = false;
     } else {
-      //means the song exists in the playlist
+      this.showToast();
     }
+    this.showAddTrack = false;
   }
 
   setActiveTrack(track: Track) {
