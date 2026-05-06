@@ -1,7 +1,7 @@
-<div class="card flex justify-center gap-2">
-  <p-toast />
-</div>
 @if (album) {
+  <div class="card flex justify-center gap-2">
+    <p-toast />
+  </div>
   <p-dialog
     [(visible)]="showAddTrack"
     header="Add to Playlist"
@@ -111,5 +111,9 @@
         </div>
       </section>
     }
+  </div>
+} @else {
+  <div class="flex items-center justify-center h-64 opacity-40">
+    <span class="text-sm">No results</span>
   </div>
 }
