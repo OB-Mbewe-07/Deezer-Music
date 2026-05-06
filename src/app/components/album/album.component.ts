@@ -9,6 +9,7 @@ import { FavouritesStore } from '../../shared/store/store';
 import { Playlist } from '../../shared/models/favourite-music.models';
 import { ButtonModule } from 'primeng/button';
 import { PlaylistService } from '../../shared/services/playlist/playlist.service';
+import { NowPlayingService } from '../../shared/services/music-player/music-player';
 
 @Component({
   standalone: true,
@@ -22,6 +23,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
   private musicFormat = inject(MusicFormatService);
   private cdr = inject(ChangeDetectorRef);
   private route = inject(ActivatedRoute);
+  private nowPlaying = inject(NowPlayingService);
   private subscription = new Subscription();
   playlists = this.store.playlists;
   id: number | null = null;
@@ -30,7 +32,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
   showAddTrack: boolean = false;
   activeTrack: Track | null = null;
   hoveredTrackId: number | null = null;
-  releaseDate : string = ""
+  releaseDate: string = '';
   ngOnInit(): void {
     this.subscription.add(
       this.route.params.subscribe((params) => {
@@ -44,7 +46,7 @@ export class AlbumComponent implements OnInit, OnDestroy {
           next: (data) => {
             this.album = data.album;
             this.tracks = data.tracks.data;
-            if(this.album){
+            if (this.album) {
               this.releaseDate = this.playlistService.albumReleaseDate(this.album);
             }
             this.cdr.detectChanges();
@@ -65,9 +67,8 @@ export class AlbumComponent implements OnInit, OnDestroy {
     if (this.activeTrack && !this.playlistService.existsInPlaylist(playlist, this.activeTrack)) {
       this.store.addTrackToPlaylist(playlist.id, this.activeTrack);
       this.showAddTrack = false;
-    }else{
+    } else {
       //means the song exists in the playlist
-
     }
   }
 
@@ -78,6 +79,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
   formatDuration(seconds: number) {
     return this.musicFormat.formatDuration(seconds);
   }
+
+  onTrackClick(track: Track) {
+    this.nowPlaying.play(track);
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

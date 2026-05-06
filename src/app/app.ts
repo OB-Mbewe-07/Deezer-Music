@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FavouritesStore } from './shared/store/store';
+import { NowPlayingBarComponent } from "./components/music-player/music-players.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NowPlayingBarComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

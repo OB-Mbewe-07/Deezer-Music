@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BadgeModule } from 'primeng/badge';
 import { FloatLabelModule } from 'primeng/floatlabel';
