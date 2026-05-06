@@ -36,7 +36,6 @@ export class LandingPageComponent implements OnDestroy {
   private subscription = new Subscription();
   search: string | undefined;
   exploreData: DeezerChartResponse | null = null;
-  text: string = '';
 
   run() {
     this.subscription.add(

@@ -15,9 +15,9 @@ import { Playlist } from '../../shared/models/favourite-music.models';
 })
 export class CreatePlaylistButtonComponent {
   private store = inject(FavouritesStore);
-  visibleCreatePlaylist: boolean = false;
-  visibleDeletePlaylist: boolean = false;
-  visibleRenamePlaylist: boolean = false;
+  visibleCreatePlaylist = false;
+  visibleDeletePlaylist = false;
+  visibleRenamePlaylist = false;
   playlists: Playlist[] = [];
   playlistName = '';
 

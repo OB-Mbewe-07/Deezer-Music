@@ -5,7 +5,6 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ArtistComponent } from './components/artist/artist.component';
 import { AlbumComponent } from './components/album/album.component';
 import { UserComponent } from './components/user/user.component';
-import { CreatePlaylistButtonComponent } from './components/button-playlist/button-playlist.component';
 
 export const routes: Routes = [
   {

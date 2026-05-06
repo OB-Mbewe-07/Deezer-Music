@@ -20,7 +20,10 @@
         <div
           class="flex items-center justify-between px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
           [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
+          role="button"
+          tabindex="0"
           (click)="setAddToPlaylist(playlist)"
+          (keydown.enter)="setAddToPlaylist(playlist)"
         >
           <span class="text-sm font-medium">{{ playlist.name }}</span>
           <i class="pi pi-plus-circle opacity-50" style="font-size: 13px"></i>
@@ -38,6 +41,7 @@
           [src]="album.cover_big"
           class="w-full rounded-xl object-cover h-full"
           style="border: 1px solid var(--p-inputtext-border-color)"
+          [alt]="album.artist?.name + ' image'"
         />
         <h4 class="text-xl font-semibold truncate">{{ album.title }}</h4>
         <h5 class="text-base opacity-50 truncate">{{ album.artist?.name }}</h5>
@@ -61,12 +65,26 @@
               class="flex items-center gap-4 px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
               [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
             >
-              <img
-                [src]="album.cover_small"
-                class="w-10 h-10 rounded-lg object-cover"
+              <button
+                type="button"
                 (click)="onTrackClick(track)"
-              />
-              <div class="flex flex-col flex-1 min-w-0" (click)="onTrackClick(track)">
+                class="p-0 border-none bg-transparent cursor-pointer"
+                [attr.aria-label]="'Play ' + track.title"
+              >
+                <img
+                  [src]="album.cover_small"
+                  class="w-10 h-10 rounded-lg object-cover"
+                  [alt]="album.artist?.name"
+                />
+              </button>
+
+              <div
+                class="flex flex-col flex-1 min-w-0"
+                (click)="onTrackClick(track)"
+                role="button"
+                tabindex="0"
+                (keypress.enter)="onTrackClick(track)"
+              >
                 <span class="text-sm font-medium truncate">{{ track.title }}</span>
                 <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
               </div>
@@ -76,7 +94,12 @@
                 (mouseleave)="hoveredTrackId = null"
               >
                 @if (hoveredTrackId === track.id) {
-                  <div (click)="setActiveTrack(track); showAddTrackDialog()">
+                  <div
+                    (click)="setActiveTrack(track); showAddTrackDialog()"
+                    role="button"
+                    tabindex="0"
+                    (keypress.enter)="setActiveTrack(track); showAddTrackDialog()"
+                  >
                     <img src="bookmark-plus.svg" alt="trash icon" class="w-6 h-6 invert" />
                   </div>
                 } @else {

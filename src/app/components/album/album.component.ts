@@ -33,10 +33,10 @@ export class AlbumComponent implements OnInit, OnDestroy {
   id: number | null = null;
   album: Album | null = null;
   tracks: Track[] | null = null;
-  showAddTrack: boolean = false;
+  showAddTrack = false;
   activeTrack: Track | null = null;
   hoveredTrackId: number | null = null;
-  releaseDate: string = '';
+  releaseDate = '';
   ngOnInit(): void {
     this.subscription.add(
       this.route.params.subscribe((params) => {

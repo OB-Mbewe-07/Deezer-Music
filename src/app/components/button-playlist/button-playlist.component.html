@@ -50,6 +50,9 @@
           class="flex items-center justify-between px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
           [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
           (click)="deletePlaylist(playlist.id)"
+          role="button"
+          tabindex="0"
+          (keypress.enter)="deletePlaylist(playlist.id)"
         >
           <span class="text-sm font-medium">{{ playlist.name }}</span>
           <i class="pi pi-trash opacity-50" style="font-size: 13px"></i>
@@ -59,40 +62,47 @@
   </p-dialog>
 
   <p-dialog
-  [(visible)]="visibleRenamePlaylist"
-  header="Rename Playlist"
-  [modal]="true"
-  [style]="{ width: '400px' }"
->
-  <div class="flex flex-col gap-4 p-4">
-    <div
-      class="flex flex-col"
-      style="border: 1px solid var(--p-inputtext-border-color); border-radius: 16px; overflow: hidden;"
-    >
-      @for (playlist of playlists; track playlist.id; let last = $last) {
-        <div
-          class="flex items-center justify-between px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
-          [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
-          (click)="selectPlaylistToRename(playlist)"
-        >
-          <span class="text-sm font-medium">{{ playlist.name }}</span>
-          <i class="pi pi-pencil opacity-50" style="font-size: 13px"></i>
-        </div>
+    [(visible)]="visibleRenamePlaylist"
+    header="Rename Playlist"
+    [modal]="true"
+    [style]="{ width: '400px' }"
+  >
+    <div class="flex flex-col gap-4 p-4">
+      <div
+        class="flex flex-col"
+        style="
+          border: 1px solid var(--p-inputtext-border-color);
+          border-radius: 16px;
+          overflow: hidden;
+        "
+      >
+        @for (playlist of playlists; track playlist.id; let last = $last) {
+          <div
+            class="flex items-center justify-between px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
+            [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
+            (click)="selectPlaylistToRename(playlist)"
+            role="button"
+            tabindex="0"
+            (keypress.enter)="selectPlaylistToRename(playlist)"
+          >
+            <span class="text-sm font-medium">{{ playlist.name }}</span>
+            <i class="pi pi-pencil opacity-50" style="font-size: 13px"></i>
+          </div>
+        }
+      </div>
+
+      @if (selectedPlaylist) {
+        <p-floatlabel variant="on">
+          <input
+            pInputText
+            id="rename"
+            [(ngModel)]="newPlaylistName"
+            style="width: 100%; border-radius: 12px"
+          />
+          <label for="rename">New Name for "{{ selectedPlaylist.name }}"</label>
+        </p-floatlabel>
+        <p-button label="Rename" [rounded]="true" (onClick)="renamePlaylist()" />
       }
     </div>
-
-    @if (selectedPlaylist) {
-      <p-floatlabel variant="on">
-        <input
-          pInputText
-          id="rename"
-          [(ngModel)]="newPlaylistName"
-          style="width: 100%; border-radius: 12px;"
-        />
-        <label for="rename">New Name for "{{ selectedPlaylist.name }}"</label>
-      </p-floatlabel>
-      <p-button label="Rename" [rounded]="true" (onClick)="renamePlaylist()" />
-    }
-  </div>
-</p-dialog>
+  </p-dialog>
 </div>
