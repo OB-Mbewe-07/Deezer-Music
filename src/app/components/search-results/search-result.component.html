@@ -1,3 +1,15 @@
+<app-drawer [(visible)]="drawerVisible" position="left" />
+<button
+  class="w-8 h-8 rounded-full flex items-center justify-center"
+  style="
+    border: 1px solid var(--p-inputtext-border-color);
+    background: transparent;
+    color: var(--p-inputtext-color);
+  "
+  (click)="drawerVisible = true"
+>
+  <i class="pi pi-bars" style="font-size: 13px"></i>
+</button>
 @if (results) {
   <div class="p-6">
     @if (artists.length) {
