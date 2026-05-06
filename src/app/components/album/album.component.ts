@@ -63,23 +63,36 @@ export class AlbumComponent implements OnInit, OnDestroy {
     }
   }
 
-  showToast() {
-    this.messageService.add({ severity: 'success', summary: 'Exists' , detail: 'Song Exists in Album' });
+  showToast(severity: 'success' | 'error'): void {
+    switch (severity) {
+      case 'success':
+        this.messageService.add({
+          severity: severity,
+          summary: 'Confirmed',
+          detail: 'Song added',
+        });
+        break;
+
+      case 'error':
+        this.messageService.add({
+          severity: severity,
+          summary: 'Check Again',
+          detail: 'Song Exists in this playlist',
+        });
+        break;
+    }
   }
 
-  showAddTrackDialog() {
+  showAddTrackDialog(): void {
     this.showAddTrack = true;
-  }
-
-  closeDialog(){
-    this.showAddTrack = false;
   }
 
   setAddToPlaylist(playlist: Playlist) {
     if (this.activeTrack && !this.playlistService.existsInPlaylist(playlist, this.activeTrack)) {
       this.store.addTrackToPlaylist(playlist.id, this.activeTrack);
+      this.showToast('success'); 
     } else {
-      this.showToast();
+      this.showToast('error');
     }
     this.showAddTrack = false;
   }
