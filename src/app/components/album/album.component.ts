@@ -44,8 +44,8 @@ export class AlbumComponent implements OnInit, OnDestroy {
           next: (data) => {
             this.album = data.album;
             this.tracks = data.tracks.data;
-            if(this.tracks){
-              this.releaseDate = this.playlistService.findReleaseDate(this.tracks);
+            if(this.album){
+              this.releaseDate = this.playlistService.albumReleaseDate(this.album);
             }
             this.cdr.detectChanges();
           },

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BadgeModule } from 'primeng/badge';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -29,7 +29,7 @@ import { Router } from '@angular/router';
     TagModule,
   ],
 })
-export class LandingPageComponent {
+export class LandingPageComponent implements OnDestroy{
   router = inject(Router);
   exploreDataService = inject(MusicExploreService);
   private cdr = inject(ChangeDetectorRef);
@@ -56,5 +56,9 @@ export class LandingPageComponent {
     if (this.search) {
       this.exploreDataService.getAllInformationSearch(this.search);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

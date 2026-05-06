@@ -46,6 +46,7 @@ export interface Album {
   cover_big: string;
   cover_xl: string;
   release_date?: string;
+  genres : { data : genreData[] }
   artist?: Partial<Artist>;
   type: string;
 }
@@ -97,4 +98,10 @@ export interface ArtistDetailsResponse {
 export interface AlbumDetailsResponse {
   album: Album;
   tracks: { data: Track[] };
+}
+
+export interface genreData {
+  id: number;
+  name: string;
+  picture: string;
 }
