@@ -29,7 +29,7 @@ import { Router } from '@angular/router';
     TagModule,
   ],
 })
-export class LandingPageComponent implements OnDestroy{
+export class LandingPageComponent implements OnDestroy {
   router = inject(Router);
   exploreDataService = inject(MusicExploreService);
   private cdr = inject(ChangeDetectorRef);
@@ -37,7 +37,7 @@ export class LandingPageComponent implements OnDestroy{
   search: string | undefined;
   exploreData: DeezerChartResponse | null = null;
   text: string = '';
-  
+
   run() {
     this.subscription.add(
       this.exploreDataService.getExploreData().subscribe({
@@ -56,6 +56,12 @@ export class LandingPageComponent implements OnDestroy{
     if (this.search) {
       this.exploreDataService.getAllInformationSearch(this.search);
     }
+  }
+
+  badgeSearch(nameStr: string) {
+    this.search = nameStr;
+    this.runSearch();
+    this.router.navigate(['/search-results'], { queryParams: { q: this.search } });
   }
 
   ngOnDestroy(): void {
