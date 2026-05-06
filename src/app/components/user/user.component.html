@@ -5,6 +5,7 @@
       [src]="defaultUser.avatar"
       class="w-40 h-40 rounded-full object-cover"
       style="border: 1px solid var(--p-inputtext-border-color)"
+      [alt]="defaultUser.name"
     />
     <h3 class="text-xl font-semibold m-[2%]">{{ defaultUser.name }}</h3>
 
@@ -32,7 +33,10 @@
             <div
               class="flex flex-col gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
               style="width: 120px"
+              tabindex="0"
+              role="button"
               (click)="setActivePlaylist(playlist)"
+              (keypress.enter)="setActivePlaylist(playlist)"
             >
               <img
                 [src]="
@@ -42,6 +46,7 @@
                 "
                 class="w-full rounded-xl object-cover"
                 style="border: 1px solid var(--p-inputtext-border-color)"
+                alt="playlist cover"
               />
               <span class="text-xs font-medium truncate">{{ playlist.name }}</span>
               <span class="text-xs opacity-50 truncate">{{ playlist.tracks.length }} songs</span>
@@ -73,6 +78,7 @@
                       : 'https://img.icons8.com/?size=190&id=BsmlGTx8komG&format=png&color=000000'
                   "
                   class="w-10 h-10 rounded-lg object-cover"
+                  alt="playlist_cover"
                 />
                 <div class="flex flex-col flex-1 min-w-0">
                   <span class="text-sm font-medium truncate">{{ track.title }}</span>
@@ -81,11 +87,19 @@
 
                 <span
                   class="text-xs opacity-40"
+                  tabindex="0"
                   (mouseenter)="hoveredTrackId = track.id"
                   (mouseleave)="hoveredTrackId = null"
+                  (focus)="hoveredTrackId = track.id"
+                  (blur)="hoveredTrackId = null"
                 >
                   @if (hoveredTrackId === track.id) {
-                    <div (click)="deleteTrack()">
+                    <div
+                      (click)="deleteTrack()"
+                      tabindex="0"
+                      role="button"
+                      (keypress.enter)="deleteTrack()"
+                    >
                       <img src="trash.svg" alt="trash icon" class="w-6 h-6 invert" />
                     </div>
                   } @else {

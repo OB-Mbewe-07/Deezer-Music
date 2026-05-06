@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+@import 'primeicons/primeicons.css';
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
@@ -48,4 +49,24 @@
   max-width: 600px;
   min-width: 320px;
   position: relative;
+}
+
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--p-inputtext-border-color);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--p-inputtext-color);
+  }
 }

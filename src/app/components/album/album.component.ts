@@ -9,28 +9,34 @@ import { FavouritesStore } from '../../shared/store/store';
 import { Playlist } from '../../shared/models/favourite-music.models';
 import { ButtonModule } from 'primeng/button';
 import { PlaylistService } from '../../shared/services/playlist/playlist.service';
+import { NowPlayingService } from '../../shared/services/music-player/music-player';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   standalone: true,
   templateUrl: './album.component.html',
-  imports: [DialogModule, ButtonModule],
+  imports: [DialogModule, ButtonModule, ToastModule],
+  providers: [MessageService],
 })
 export class AlbumComponent implements OnInit, OnDestroy {
   private store = inject(FavouritesStore);
+  private messageService = inject(MessageService);
   private playlistService = inject(PlaylistService);
   private musicApi = inject(MusicExploreService);
   private musicFormat = inject(MusicFormatService);
   private cdr = inject(ChangeDetectorRef);
   private route = inject(ActivatedRoute);
+  private nowPlaying = inject(NowPlayingService);
   private subscription = new Subscription();
   playlists = this.store.playlists;
   id: number | null = null;
   album: Album | null = null;
   tracks: Track[] | null = null;
-  showAddTrack: boolean = false;
+  showAddTrack = false;
   activeTrack: Track | null = null;
   hoveredTrackId: number | null = null;
-  releaseDate : string = ""
+  releaseDate = '';
   ngOnInit(): void {
     this.subscription.add(
       this.route.params.subscribe((params) => {
@@ -44,8 +50,8 @@ export class AlbumComponent implements OnInit, OnDestroy {
           next: (data) => {
             this.album = data.album;
             this.tracks = data.tracks.data;
-            if(this.tracks){
-              this.releaseDate = this.playlistService.findReleaseDate(this.tracks);
+            if (this.album) {
+              this.releaseDate = this.playlistService.albumReleaseDate(this.album);
             }
             this.cdr.detectChanges();
           },
@@ -57,18 +63,38 @@ export class AlbumComponent implements OnInit, OnDestroy {
     }
   }
 
-  showAddTrackDialog() {
+  showToast(severity: 'success' | 'error'): void {
+    switch (severity) {
+      case 'success':
+        this.messageService.add({
+          severity: severity,
+          summary: 'Confirmed',
+          detail: 'Song added',
+        });
+        break;
+
+      case 'error':
+        this.messageService.add({
+          severity: severity,
+          summary: 'Check Again',
+          detail: 'Song Exists in this playlist',
+        });
+        break;
+    }
+  }
+
+  showAddTrackDialog(): void {
     this.showAddTrack = true;
   }
 
   setAddToPlaylist(playlist: Playlist) {
     if (this.activeTrack && !this.playlistService.existsInPlaylist(playlist, this.activeTrack)) {
       this.store.addTrackToPlaylist(playlist.id, this.activeTrack);
-      this.showAddTrack = false;
-    }else{
-      //means the song exists in the playlist
-
+      this.showToast('success'); 
+    } else {
+      this.showToast('error');
     }
+    this.showAddTrack = false;
   }
 
   setActiveTrack(track: Track) {
@@ -78,6 +104,11 @@ export class AlbumComponent implements OnInit, OnDestroy {
   formatDuration(seconds: number) {
     return this.musicFormat.formatDuration(seconds);
   }
+
+  onTrackClick(track: Track) {
+    this.nowPlaying.play(track);
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

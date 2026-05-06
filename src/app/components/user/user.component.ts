@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserProfile } from '../../shared/models/user-data.model';
 import { FavouritesStore } from '../../shared/store/store';
 import { Playlist } from '../../shared/models/favourite-music.models';
@@ -29,7 +29,7 @@ export class UserComponent {
   setActivePlaylist(playlist: Playlist): void {
     this.activeplaylist = this.playlists().find(p => p.id === playlist.id) ?? null;
   }
-  
+
   formatDuration(seconds: number): string {
     return this.musicFormat.formatDuration(seconds);
   }

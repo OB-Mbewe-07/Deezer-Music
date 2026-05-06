@@ -17,7 +17,9 @@
           pInputText
           id="on_label"
           [(ngModel)]="search"
-          (keyup.enter)="runSearch(); router.navigate(['/search-results'], { queryParams: { q: search } });"
+          (keyup.enter)="
+            runSearch(); router.navigate(['/search-results'], { queryParams: { q: search } })
+          "
           autocomplete="off"
           class="landingInput"
           style="border-radius: 24px"
@@ -28,11 +30,27 @@
         </button>
       </p-floatlabel>
       <div class="flex gap-[2%]">
-        <p-badge value="Drake" style="white-space: nowrap" />
-        <p-badge value="Mavrick City" style="white-space: nowrap" />
-        <p-badge value="Elevation worship" style="white-space: nowrap" />
+        <p-badge
+          value="Drake"
+          style="white-space: nowrap; cursor: pointer"
+          (click)="badgeSearch('Drake')"
+        />
+        <p-badge
+          value="Mavrick City"
+          style="white-space: nowrap; cursor: pointer"
+          (click)="badgeSearch('Mavrick City')"
+        />
+        <p-badge
+          value="Elevation worship"
+          style="white-space: nowrap; cursor: pointer"
+          (click)="badgeSearch('Elevation worship')"
+        />
         <div class="hidden sm:block">
-          <p-badge value="The Weekend" style="white-space: nowrap" />
+          <p-badge
+            value="The Weekend"
+            style="white-space: nowrap; cursor: pointer"
+            (click)="badgeSearch('The Weekend')"
+          />
         </div>
       </div>
     </div>

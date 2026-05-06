@@ -3,6 +3,7 @@
     <div class="flex flex-col items-center m-8">
       <img
         [src]="artist.picture_medium"
+        [alt]="artist.name + ' name'"
         class="w-40 h-40 rounded-full object-cover"
         style="border: 1px solid var(--p-inputtext-border-color)"
       />
@@ -18,11 +19,15 @@
               class="flex flex-col gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
               style="width: 120px"
               (click)="router.navigate(['/album', album.id])"
+              role="button"
+              tabindex="0"
+              (keypress.enter)="router.navigate(['/album', album.id])"
             >
               <img
                 [src]="album.cover_medium"
                 class="w-full rounded-xl object-cover"
                 style="border: 1px solid var(--p-inputtext-border-color)"
+                [alt]="album.title + ' image'"
               />
               <span class="text-xs font-medium truncate">{{ album.title }}</span>
               <span class="text-xs opacity-50 truncate">{{ album.artist?.name }}</span>
@@ -48,7 +53,7 @@
               class="flex items-center gap-4 px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
               [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
             >
-              <img [src]="track.album.cover_small" class="w-10 h-10 rounded-lg object-cover" />
+              <img [src]="track.album.cover_small" class="w-10 h-10 rounded-lg object-cover" [alt]="track.album.title"/>
               <div class="flex flex-col flex-1 min-w-0">
                 <span class="text-sm font-medium truncate">{{ track.title }}</span>
                 <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
@@ -59,5 +64,9 @@
         </div>
       </section>
     }
+  </div>
+} @else {
+  <div class="flex items-center justify-center h-64 opacity-40">
+    <span class="text-sm">No results</span>
   </div>
 }

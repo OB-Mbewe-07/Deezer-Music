@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { FavouritesStore } from "../../store/store";
 import { Playlist } from "../../models/favourite-music.models";
-import { Track } from "../../models/music-explore.models";
+import { Album, Track } from "../../models/music-explore.models";
 
 
 @Injectable({
@@ -14,12 +14,7 @@ export class PlaylistService{
         return !!playlist.tracks.find(t => t.id === track.id)
     }
 
-    findReleaseDate(tracks: Track[]): string{
-        for(const track of tracks){
-            if(track.release_date){
-                return "Released: " + track.release_date;
-            }
-        }
-        return "No release date";
+    albumReleaseDate(album: Album):string{
+       return (album.release_date) ? (album.release_date) : "No release date"; 
     }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MusicExploreService } from '../../shared/services/music-explore/music-expore.service';
-import { Subscription, switchMap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Album, Artist, Track } from '../../shared/models/music-explore.models';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
