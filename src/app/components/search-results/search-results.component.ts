@@ -15,11 +15,12 @@ import { filter, Subscription, switchMap } from 'rxjs';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
 import { DrawerComponent } from "../drawer/drawer.component";
 import { NavbarComponent } from "../navbar/navbar.component";
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   templateUrl: './search-result.component.html',
   standalone: true,
-  imports: [CommonModule, CardModule, TagModule, ButtonModule, DrawerComponent, NavbarComponent],
+  imports: [CommonModule, CardModule, TagModule, ButtonModule, NavbarComponent, ProgressSpinnerModule],
 })
 export class ArtistsAlbumTracksComponent implements OnInit, OnDestroy{
   private information = inject(MusicExploreService);
