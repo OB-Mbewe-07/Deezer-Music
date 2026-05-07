@@ -7,6 +7,7 @@ import { MusicFormatService } from '../../shared/services/music-explore/music-ex
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { NowPlayingService } from '../../shared/services/music-player/music-player';
 
 @Component({
   templateUrl: './artist.component.html',
@@ -14,8 +15,8 @@ import { ProgressSpinnerModule } from "primeng/progressspinner";
   imports: [CommonModule, NavbarComponent, ProgressSpinnerModule],
 })
 export class ArtistComponent implements OnInit, OnDestroy {
-    //TODO: add logic to ensure that I have full access to all tracks in this artists work
   private musicApi = inject(MusicExploreService);
+  private musicPlayer = inject(NowPlayingService)
   private cdr = inject(ChangeDetectorRef);
   private route = inject(ActivatedRoute);
   private musicFormat = inject(MusicFormatService);
@@ -49,6 +50,10 @@ export class ArtistComponent implements OnInit, OnDestroy {
         }),
       );
     }
+  }
+
+   playTrack(track: Track): void {
+    this.musicPlayer.play(track);
   }
 
   formatDuration(seconds: number): string{
