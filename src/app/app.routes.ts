@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AlbumComponent } from './components/album/album.component';
+import { albumResolver } from './shared/resolver/route-resolver';
 
 
 export const routes: Routes = [
@@ -23,6 +24,7 @@ export const routes: Routes = [
   {
     path: 'album/:id',
     loadComponent: () => import('./components/album/album.component').then(m => m.AlbumComponent),
+    resolve: { data: albumResolver }
   },
   {
     path: '**',
