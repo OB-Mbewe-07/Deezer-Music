@@ -6,11 +6,12 @@ import { Album, Artist, Track } from '../../shared/models/music-explore.models';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
 
 @Component({
   templateUrl: './artist.component.html',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent, ProgressSpinnerModule],
 })
 export class ArtistComponent implements OnInit, OnDestroy {
     //TODO: add logic to ensure that I have full access to all tracks in this artists work
