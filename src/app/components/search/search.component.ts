@@ -12,6 +12,7 @@ import { MusicExploreService } from '../../shared/services/music-explore/music-e
 import { Subscription } from 'rxjs';
 import { DeezerChartResponse } from '../../shared/models/music-explore.models';
 import { Router } from '@angular/router';
+import { ExploreComponent } from "../explore/explore.component";
 
 @Component({
   selector: 'app-input',
@@ -27,7 +28,8 @@ import { Router } from '@angular/router';
     ButtonModule,
     CarouselModule,
     TagModule,
-  ],
+    ExploreComponent
+],
 })
 export class LandingPageComponent implements OnDestroy {
   router = inject(Router);

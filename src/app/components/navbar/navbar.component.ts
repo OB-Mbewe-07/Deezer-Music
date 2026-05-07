@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { FloatLabel } from 'primeng/floatlabel';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +26,7 @@ import { DrawerComponent } from '../drawer/drawer.component';
               </button>
             </div>
             <div class="flex justify-center w-full" style="max-width: 100%;">
-              <p-floatlabel variant="on" style="position: relative; min-width: 400px;">
+              <p-floatlabel variant="on" style="position: relative; width: 100%; max-width: 400px;">
                 <input
                   pInputText
                   id="on_label"
@@ -68,9 +68,8 @@ import { DrawerComponent } from '../drawer/drawer.component';
   standalone: true,
   imports: [MenubarModule, FloatLabel, FormsModule, DrawerComponent],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   search: string = '';
   drawerVisible = false;
   router = inject(Router);
-  ngOnInit() {}
 }

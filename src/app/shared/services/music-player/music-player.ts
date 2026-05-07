@@ -28,7 +28,7 @@ export class NowPlayingService {
         this.audio.load();
 
        this.audio.addEventListener('canplay', () => {
-          this.audio.play().catch(() => {});
+          this.audio.play().catch();
           this.isPlaying.set(true);
         }, { once: true, signal });
 
@@ -56,7 +56,7 @@ export class NowPlayingService {
       this.audio.pause();
       this.isPlaying.set(false);
     } else {
-      this.audio.play().catch(() => {});
+      this.audio.play().catch();
       this.isPlaying.set(true);
     }
   }

@@ -27,6 +27,10 @@ export const routes: Routes = [
     resolve: { data: albumResolver }
   },
   {
+    path: 'explore',
+    loadComponent: () => import('./components/explore/explore.component').then(m => m.ExploreComponent)
+  },
+  {
     path: '**',
     loadComponent:() => import('./components/not-found/not-found.component').then(m => m.NotFoundComponent),
   },

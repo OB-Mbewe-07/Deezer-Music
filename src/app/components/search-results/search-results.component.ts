@@ -13,7 +13,6 @@ import { ButtonModule } from 'primeng/button';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, Subscription, switchMap } from 'rxjs';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
-import { DrawerComponent } from "../drawer/drawer.component";
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 

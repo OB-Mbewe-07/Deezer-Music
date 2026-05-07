@@ -18,6 +18,7 @@
                 class="w-40 h-40 rounded-full object-cover"
                 style="border: 1px solid var(--p-inputtext-border-color)"
                 [alt]="artist.name"
+                loading="lazy"
               />
               <span class="text-xs font-medium text-center w-16 truncate">{{ artist.name }}</span>
             </div>
@@ -44,6 +45,7 @@
                 class="w-full rounded-xl object-cover"
                 style="border: 1px solid var(--p-inputtext-border-color)"
                 [alt]="album.title"
+                loading="lazy"
               />
               <span class="text-xs font-medium truncate">{{ album.title }}</span>
               <span class="text-xs opacity-50 truncate">{{ album.artist?.name }}</span>
@@ -73,6 +75,7 @@
                 [src]="track.album.cover_small"
                 class="w-10 h-10 rounded-lg object-cover"
                 [alt]="track.title"
+                loading="lazy"
               />
               <div class="flex flex-col flex-1 min-w-0">
                 <span class="text-sm font-medium truncate">{{ track.title }}</span>

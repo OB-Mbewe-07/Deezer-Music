@@ -1,7 +1,7 @@
 <p-drawer
       [(visible)]="visible"
       [position]="position()"
-      (onHide)="onDrawerClosed.emit('User closed the drawer')"
+      [modal]="false"
     >
       <ng-template #header>
         <div class="flex items-center gap-2">
@@ -26,7 +26,7 @@
             [style]="
               router.url === item.route ? 'border: 1px solid var(--p-inputtext-border-color)' : ''
             "
-            (click)="navigate(item.route)"
+            (click)="navigate(item.route); visible.set(false)"
           >
             <i [class]="'pi ' + item.icon" style="font-size: 16px;"></i>
             <span class="text-sm font-medium">{{ item.label }}</span>
@@ -39,7 +39,7 @@
       <ng-template #footer>
         <div
           class="flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer hover:opacity-70 transition-opacity"
-          (click)="navigate('/profile')"
+          (click)="navigate('/profile'); visible.set(false)"
         >
           <i class="pi pi-user" style="font-size: 16px;"></i>
           <span class="text-sm font-medium">Profile</span>

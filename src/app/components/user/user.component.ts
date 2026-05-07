@@ -5,11 +5,12 @@ import { Playlist } from '../../shared/models/favourite-music.models';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
 import { CreatePlaylistButtonComponent } from '../button-playlist/button-playlist.component';
 import { ButtonModule } from 'primeng/button';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   standalone: true,
   templateUrl: './user.component.html',
-  imports: [CreatePlaylistButtonComponent, ButtonModule],
+  imports: [CreatePlaylistButtonComponent, ButtonModule, NavbarComponent],
 })
 export class UserComponent {
   private store = inject(FavouritesStore);

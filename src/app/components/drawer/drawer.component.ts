@@ -22,7 +22,9 @@ export class DrawerComponent {
   ];
 
   navigate(route: string) {
-    this.router.navigate([route]);
     this.visible.set(false);
+    setTimeout(() => {
+      this.router.navigate([route]);
+    }, 200);
   }
 }
