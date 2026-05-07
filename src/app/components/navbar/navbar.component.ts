@@ -38,11 +38,25 @@ import { DrawerComponent } from '../drawer/drawer.component';
 
           <button
             (click)="onSearch()"
-            class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#1db954] 
+            class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#213622] 
                text-black flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-lg"
           >
             <i class="pi pi-arrow-right text-[10px] font-bold"></i>
           </button>
+        </div>
+        <div class="shrink-0 hidden md:block w-10">
+          <div class="flex">
+            <img
+              src="https://img.icons8.com/?size=40&id=uEdXEgELNafT&format=png&color=000000"
+              alt="logo"
+              loading="eager"
+            />
+            <img
+              src="https://img.icons8.com/?size=40&id=zQBiTJTC1Gj0&format=png&color=000000"
+              alt="logo"
+              loading="eager"
+            />
+          </div>
         </div>
       </div>
     </nav>
