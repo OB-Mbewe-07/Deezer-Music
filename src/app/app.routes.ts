@@ -1,34 +1,31 @@
 import { Routes } from '@angular/router';
-import { LandingPageComponent } from './components/search/search.component';
-import { ArtistsAlbumTracksComponent } from './components/search-results/search-results.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { ArtistComponent } from './components/artist/artist.component';
 import { AlbumComponent } from './components/album/album.component';
-import { UserComponent } from './components/user/user.component';
+
 
 export const routes: Routes = [
   {
     path: '',
-    component: LandingPageComponent,
+    loadComponent: () => import('./components/search/search.component').then(m => m.LandingPageComponent),
   },
   {
     path: 'search-results',
-    component: ArtistsAlbumTracksComponent,
+    loadComponent: () => import( './components/search-results/search-results.component').then(m => m.ArtistsAlbumTracksComponent),
   },
   {
     path: 'profile',
-    component: UserComponent,
+    loadComponent: () => import('./components/user/user.component').then(m => m.UserComponent),
   },
   {
     path: 'artist/:id',
-    component: ArtistComponent
+    loadComponent: () => import('./components/artist/artist.component').then(m => m.ArtistComponent),
   },
   {
     path: 'album/:id',
-    component: AlbumComponent
+    loadComponent: () => import('./components/album/album.component').then(m => m.AlbumComponent),
   },
   {
     path: '**',
-    component: NotFoundComponent,
+    loadComponent:() => import('./components/not-found/not-found.component').then(m => m.NotFoundComponent),
   },
 ];
