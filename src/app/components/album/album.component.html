@@ -1,3 +1,4 @@
+<app-nav></app-nav>
 @if (album) {
   <div class="card flex justify-center gap-2">
     <p-toast />
@@ -42,10 +43,11 @@
           class="w-full rounded-xl object-cover h-full"
           style="border: 1px solid var(--p-inputtext-border-color)"
           [alt]="album.artist?.name + ' image'"
+          loading="lazy"
         />
         <h4 class="text-xl font-semibold truncate">{{ album.title }}</h4>
         <h5 class="text-base opacity-50 truncate">{{ album.artist?.name }}</h5>
-        <h6 class="text-base opacity-50 truncate italic">{{ releaseDate }}</h6>
+        <h6 class="text-base opacity-50 truncate italic">{{ releaseDate | releaseYear }}</h6>
       </div>
     </div>
 
@@ -75,6 +77,7 @@
                   [src]="album.cover_small"
                   class="w-10 h-10 rounded-lg object-cover"
                   [alt]="album.artist?.name"
+                  loading="lazy"
                 />
               </button>
 
@@ -100,7 +103,7 @@
                     tabindex="0"
                     (keypress.enter)="setActiveTrack(track); showAddTrackDialog()"
                   >
-                    <img src="bookmark-plus.svg" alt="trash icon" class="w-6 h-6 invert" />
+                    <img src="bookmark-plus.svg" alt="trash icon" class="w-6 h-6 invert" loading="lazy"/>
                   </div>
                 } @else {
                   {{ formatDuration(track.duration) }}
