@@ -1,14 +1,14 @@
 <div class="card flex justify-center">
   <div class="flex gap-3 m-[3%]">
-    <p-button (click)="showCreatePlaylist()" label="Add" [rounded]="true" [outlined]="true" />
+    <p-button (click)="showCreatePlaylist()" icon="pi pi-plus" [rounded]="true" [outlined]="true" />
     <p-button
       (click)="showDeletePlaylist()"
       [rounded]="true"
       [outlined]="true"
-      label="Remove"
+      icon="pi pi-trash"
       severity="danger"
     />
-    <p-button (click)="showRenamePlaylist()" label="Rename" [rounded]="true" [outlined]="true" />
+    <p-button (click)="showRenamePlaylist()" icon="pi pi-pencil" [rounded]="true" [outlined]="true" />
   </div>
 
   <p-dialog
