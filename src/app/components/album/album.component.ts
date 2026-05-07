@@ -12,11 +12,12 @@ import { PlaylistService } from '../../shared/services/playlist/playlist.service
 import { NowPlayingService } from '../../shared/services/music-player/music-player';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   standalone: true,
   templateUrl: './album.component.html',
-  imports: [DialogModule, ButtonModule, ToastModule],
+  imports: [DialogModule, ButtonModule, ToastModule, NavbarComponent],
   providers: [MessageService],
 })
 export class AlbumComponent implements OnInit, OnDestroy {
