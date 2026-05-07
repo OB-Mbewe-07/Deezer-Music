@@ -1,127 +1,135 @@
-<app-nav/>
-<app-button />
-<div class="p-6">
-  <div class="flex flex-col items-center m-8">
+<app-nav />
+<div class="max-w-7xl mx-auto px-4 md:px-8 pb-32">
+  <div class="flex flex-col md:flex-row items-center md:items-end gap-6 mt-10 mb-16">
     <img
       [src]="defaultUser.avatar"
-      class="w-40 h-40 rounded-full object-cover"
+      class="w-36 h-36 md:w-48 md:h-48 rounded-full object-cover shadow-2xl border-2 border-white/10"
       style="border: 1px solid var(--p-inputtext-border-color)"
       [alt]="defaultUser.name"
     />
-    <h3 class="text-xl font-semibold m-[2%]">{{ defaultUser.name }}</h3>
-
-    <div class="flex gap-6">
-      <div
-        class="flex flex-col items-center px-6 py-3 rounded-2xl"
-        style="border: 1px solid var(--p-inputtext-border-color)"
-      >
-        <span class="text-2xl font-bold">{{ playlists().length }}</span>
-        <span class="text-xs opacity-50">Playlists</span>
-      </div>
-      <div
-        class="flex flex-col items-center px-6 py-3 rounded-2xl"
-        style="border: 1px solid var(--p-inputtext-border-color)"
-      >
-        <span class="text-2xl font-bold">{{ getTotalTime() }}</span>
-        <span class="text-xs opacity-50">Total Time</span>
+    <div class="flex flex-col items-center md:items-start gap-3">
+      <span class="text-[10px] uppercase tracking-[0.3em] opacity-40 font-bold">Music Profile</span>
+      <h3 class="text-4xl md:text-7xl font-black tracking-tighter">{{ defaultUser.name }}</h3>
+      <div class="flex gap-10 mt-4">
+        <div class="flex flex-col items-center md:items-start">
+          <span class="text-2xl font-bold">{{ playlists().length }}</span>
+          <span class="text-[10px] uppercase opacity-50 tracking-widest">Playlists</span>
+        </div>
+        <div class="flex flex-col items-center md:items-start">
+          <span class="text-2xl font-bold">{{ getTotalTime() }}</span>
+          <span class="text-[10px] uppercase opacity-50 tracking-widest">Total Time</span>
+        </div>
       </div>
     </div>
-    @if (playlists() && playlists().length) {
-      <section class="mb-8">
-        <h2 class="text-lg font-semibold mb-3 opacity-60">Albums</h2>
-        <div class="flex gap-4 overflow-x-auto pb-2">
+  </div>
+
+  @if (playlists() && playlists().length) {
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+    
+      <section class="md:col-span-4 lg:col-span-3">
+        <div class="flex items-center justify-between mb-6 px-1">
+          <h2 class="text-xl font-bold tracking-tight opacity-80">Library</h2>
+          <app-button />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 md:flex md:flex-col md:gap-3 overflow-visible">
           @for (playlist of playlists(); track playlist.id) {
             <div
-              class="flex flex-col gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
-              style="width: 120px"
-              tabindex="0"
-              role="button"
+              class="flex flex-col md:flex-row items-center gap-3 cursor-pointer group p-2 rounded-xl transition-all hover:bg-white/5"
               (click)="setActivePlaylist(playlist)"
-              (keypress.enter)="setActivePlaylist(playlist)"
             >
-              <img
-                [src]="
-                  playlist.image
-                    ? playlist.image
-                    : 'https://img.icons8.com/?size=190&id=BsmlGTx8komG&format=png&color=000000'
-                "
-                class="w-full rounded-xl object-cover"
-                style="border: 1px solid var(--p-inputtext-border-color)"
-                alt="playlist cover"
-              />
-              <span class="text-xs font-medium truncate">{{ playlist.name }}</span>
-              <span class="text-xs opacity-50 truncate">{{ playlist.tracks.length }} songs</span>
+              <div
+                class="relative overflow-hidden rounded-lg shadow-lg aspect-square w-full md:w-14"
+              >
+                <img
+                  [src]="
+                    playlist.image ||
+                    'https://img.icons8.com/?size=190&id=BsmlGTx8komG&format=png&color=000000'
+                  "
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  style="border: 1px solid var(--p-inputtext-border-color)"
+                  alt="cover"
+                />
+              </div>
+              <div class="flex flex-col min-w-0 text-center md:text-left">
+                <span class="text-sm font-bold truncate group-hover:text-[#4caf50]">{{
+                  playlist.name
+                }}</span>
+                <span class="text-[11px] opacity-40 uppercase"
+                  >{{ playlist.tracks.length }} songs</span
+                >
+              </div>
             </div>
           }
         </div>
       </section>
 
       @if (activeplaylist) {
-        <section class="mb-8">
-          <h2 class="text-lg font-semibold mb-3 opacity-60">Tracks</h2>
-          <div
-            class="flex flex-col"
-            style="
-              border: 1px solid var(--p-inputtext-border-color);
-              border-radius: 16px;
-              overflow: hidden;
-            "
-          >
-            @for (track of activeplaylist.tracks; track track.id; let last = $last) {
-              <div
-                class="flex items-center gap-4 px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
-                [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
+      <section class="md:col-span-8 lg:col-span-9">
+        <h2 class="text-lg font-semibold mb-3 opacity-60">Tracks</h2>
+        <div
+          class="flex flex-col"
+          style="
+            border: 1px solid var(--p-inputtext-border-color);
+            border-radius: 16px;
+            overflow: hidden;
+          "
+        >
+          @for (track of activeplaylist.tracks; track track.id; let last = $last) {
+            <div
+              class="flex items-center gap-4 px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
+              [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
+            >
+              <img
+                [src]="
+                  activeplaylist.image
+                    ? activeplaylist.image
+                    : 'https://img.icons8.com/?size=190&id=BsmlGTx8komG&format=png&color=000000'
+                "
+                class="w-10 h-10 rounded-lg object-cover"
+                alt="playlist_cover"
+              />
+              <div class="flex flex-col flex-1 min-w-0">
+                <span class="text-sm font-medium truncate">{{ track.title }}</span>
+                <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
+              </div>
+
+              <span
+                class="text-xs opacity-40"
+                tabindex="0"
+                (mouseenter)="hoveredTrackId = track.id"
+                (mouseleave)="hoveredTrackId = null"
+                (focus)="hoveredTrackId = track.id"
+                (blur)="hoveredTrackId = null"
               >
-                <img
-                  [src]="
-                    activeplaylist.image
-                      ? activeplaylist.image
-                      : 'https://img.icons8.com/?size=190&id=BsmlGTx8komG&format=png&color=000000'
-                  "
-                  class="w-10 h-10 rounded-lg object-cover"
-                  alt="playlist_cover"
-                />
-                <div class="flex flex-col flex-1 min-w-0">
-                  <span class="text-sm font-medium truncate">{{ track.title }}</span>
-                  <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
-                </div>
+                @if (hoveredTrackId === track.id) {
+                  <div
+                    (click)="deleteTrack()"
+                    tabindex="0"
+                    role="button"
+                    (keypress.enter)="deleteTrack()"
+                  >
+                    <img src="trash.svg" alt="trash icon" class="w-6 h-6 invert" />
+                  </div>
+                } @else {
+                  {{ formatDuration(track.duration) }}
+                }
+              </span>
+            </div>
+          }
 
-                <span
-                  class="text-xs opacity-40"
-                  tabindex="0"
-                  (mouseenter)="hoveredTrackId = track.id"
-                  (mouseleave)="hoveredTrackId = null"
-                  (focus)="hoveredTrackId = track.id"
-                  (blur)="hoveredTrackId = null"
-                >
-                  @if (hoveredTrackId === track.id) {
-                    <div
-                      (click)="deleteTrack()"
-                      tabindex="0"
-                      role="button"
-                      (keypress.enter)="deleteTrack()"
-                    >
-                      <img src="trash.svg" alt="trash icon" class="w-6 h-6 invert" />
-                    </div>
-                  } @else {
-                    {{ formatDuration(track.duration) }}
-                  }
-                </span>
-              </div>
-            }
-
-            @if (activeplaylist.tracks.length === 0) {
-              <div>
-                <p>No Songs yet</p>
-              </div>
-            }
-          </div>
-        </section>
-      }
-    } @else {
-      <div class="flex items-center justify-center h-64 opacity-40">
-        <span class="text-sm">No Playlists yet</span>
-      </div>
+          @if (activeplaylist.tracks.length === 0) {
+            <div>
+              <p>No Songs yet</p>
+            </div>
+          }
+        </div>
+      </section>
     }
-  </div>
+    </div>
+  } @else {
+    <div class="flex items-center justify-center h-64 opacity-40">
+      <span class="text-sm">No Playlists yet</span>
+    </div>
+  }
 </div>
