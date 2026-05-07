@@ -1,3 +1,4 @@
+<app-nav/>
 <div class="p-6">
   @if (isLoading()) {
     <div class="flex items-center justify-center h-64 opacity-40">
@@ -108,7 +109,6 @@
       [first]="first"
       [rows]="rows"
       [totalRecords]="allTracks.length"
-      [rowsPerPageOptions]="[5, 8, 10]"
       (onPageChange)="onPageChange($event)"
       [style]="{ background: 'transparent' }"
     />
