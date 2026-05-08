@@ -21,9 +21,8 @@
         </div>
       </div>
     </div>
-    @if(playlists()){
+    @if(!playlists()){
       <div class="flex items-center justify-between mb-6 px-1">
-        <h2 class="text-xl font-bold tracking-tight opacity-80">Library</h2>
         <app-button />
       </div>
     }
