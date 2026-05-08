@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    @if(!playlists()){
+    @if(!playlists() && !playlists().length){
       <div class="flex items-center justify-between mb-6 px-1">
         <app-button />
       </div>
