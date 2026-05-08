@@ -199,5 +199,10 @@ This rewrites all `/deezer-api/*` requests to `https://api.deezer.com/*` at Verc
 
 link: `https://not-spotify-ten.vercel.app/`
 
-![alt text](<Screenshot 2026-05-08 at 12.40.55.png>) ![alt text](<Screenshot 2026-05-08 at 12.40.37.png>)
-![alt text](<Screenshot 2026-05-08 at 12.39.06.png>) ![alt text](<Screenshot 2026-05-08 at 12.39.21.png>) ![alt text](<Screenshot 2026-05-08 at 12.40.00.png>) ![alt text](<Screenshot 2026-05-08 at 12.40.12.png>)
+## Screenshots
+
+| | |
+|---|---|
+| ![Landing](public/Screenshot%202026-05-08%20at%2012.39.06.png) | ![Explore](public/Screenshot%202026-05-08%20at%2012.39.21.png) |
+| ![Search](public/Screenshot%202026-05-08%20at%2012.40.00.png) | ![Artist](public/Screenshot%202026-05-08%20at%2012.40.12.png) |
+| ![Album](public/Screenshot%202026-05-08%20at%2012.40.37.png) | ![Profile](public/Screenshot%202026-05-08%20at%2012.40.55.png) |
