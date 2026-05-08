@@ -8,11 +8,12 @@ import { ButtonModule } from 'primeng/button';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { NowPlayingService } from '../../shared/services/music-player/music-player';
 import { Track } from '../../shared/models/music-explore.models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
   templateUrl: './user.component.html',
-  imports: [CreatePlaylistButtonComponent, ButtonModule, NavbarComponent],
+  imports: [CreatePlaylistButtonComponent, ButtonModule, NavbarComponent, CommonModule],
 })
 export class UserComponent {
   private store = inject(FavouritesStore);
