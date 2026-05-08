@@ -6,15 +6,19 @@ import { MusicFormatService } from '../../shared/services/music-explore/music-ex
 import { CreatePlaylistButtonComponent } from '../button-playlist/button-playlist.component';
 import { ButtonModule } from 'primeng/button';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { NowPlayingService } from '../../shared/services/music-player/music-player';
+import { Track } from '../../shared/models/music-explore.models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
   templateUrl: './user.component.html',
-  imports: [CreatePlaylistButtonComponent, ButtonModule, NavbarComponent],
+  imports: [CreatePlaylistButtonComponent, ButtonModule, NavbarComponent, CommonModule],
 })
 export class UserComponent {
   private store = inject(FavouritesStore);
   private musicFormat = inject(MusicFormatService);
+  private musicPlayerService = inject(NowPlayingService)
   playlists = this.store.playlists;
   hoveredTrackId: number | null = null;
   activeplaylist: Playlist | null = null;
@@ -41,6 +45,10 @@ export class UserComponent {
       totalSeconds += playlist.tracks.reduce((acc, track) => acc + track.duration, 0);
     }
     return this.musicFormat.formatDuration(totalSeconds);
+  }
+
+  playTrack(track: Track){
+    this.musicPlayerService.play(track);
   }
 
   deleteTrack() {

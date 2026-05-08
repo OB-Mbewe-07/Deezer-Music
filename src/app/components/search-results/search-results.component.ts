@@ -15,6 +15,7 @@ import { filter, Subscription, switchMap } from 'rxjs';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { NowPlayingService } from '../../shared/services/music-player/music-player';
 
 @Component({
   templateUrl: './search-result.component.html',
@@ -26,6 +27,7 @@ export class ArtistsAlbumTracksComponent implements OnInit, OnDestroy{
   private route = inject(ActivatedRoute);
   private cdr = inject(ChangeDetectorRef);
   private musicFormat = inject(MusicFormatService);
+  private musicPlayer = inject(NowPlayingService); 
   private subscription = new Subscription();
   router = inject(Router);
   results: DeezerSearchResponse | undefined = undefined;
@@ -50,6 +52,10 @@ export class ArtistsAlbumTracksComponent implements OnInit, OnDestroy{
           },
         }),
     );
+  }
+
+  playTrack(track: Track): void {
+    this.musicPlayer.play(track); 
   }
 
   formatDuration(seconds: number): string {

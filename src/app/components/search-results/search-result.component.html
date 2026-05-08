@@ -77,7 +77,13 @@
                 [alt]="track.title"
                 loading="lazy"
               />
-              <div class="flex flex-col flex-1 min-w-0">
+              <div
+                class="flex flex-col flex-1 min-w-0"
+                (click)="playTrack(track)"
+                role="button"
+                tabindex="0"
+                (keypress.enter)="playTrack(track)"
+              >
                 <span class="text-sm font-medium truncate">{{ track.title }}</span>
                 <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
               </div>

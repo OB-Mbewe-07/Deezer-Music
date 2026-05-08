@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { openDB } from 'idb';
 import { Playlist } from '../../models/favourite-music.models';
+import { IDBPDatabase } from 'idb';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class IndexedDbService {
   private readonly VERSION = 1;
 
   private dbPromise = openDB(this.DB_NAME, this.VERSION, {
-    upgrade(db) {
+    upgrade(db : IDBPDatabase) {
       db.createObjectStore('playlists', { keyPath: 'id' });
     },
   });

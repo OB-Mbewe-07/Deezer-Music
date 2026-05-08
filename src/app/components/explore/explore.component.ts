@@ -11,11 +11,13 @@ import { PaginatorModule } from 'primeng/paginator';
 import { Router } from '@angular/router';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
 import { NowPlayingService } from '../../shared/services/music-player/music-player';
+import { NavbarComponent } from "../navbar/navbar.component";
+import { PaginatorState } from 'primeng/paginator';
 
 @Component({
   selector: 'app-explore',
   standalone: true,
-  imports: [CommonModule, PaginatorModule],
+  imports: [CommonModule, PaginatorModule, NavbarComponent],
   templateUrl: './explore.component.html',
 })
 export class ExploreComponent implements OnInit {
@@ -45,7 +47,7 @@ export class ExploreComponent implements OnInit {
         this.allTracks = data.tracks.data;
         this.artists = data.artists.data;
         this.albums = data.albums.data;
-        
+
         this.updatePagedTracks();
         this.isLoading.set(false);
       },
@@ -60,9 +62,9 @@ export class ExploreComponent implements OnInit {
     this.pagedTracks = this.allTracks.slice(this.first, this.first + this.rows);
   }
 
-  onPageChange(event: any): void {
-    this.first = event.first;
-    this.rows = event.rows;
+  onPageChange(event: PaginatorState): void {
+    this.first = event.first ?? 0;
+    this.rows = event.rows ?? 8;
     this.updatePagedTracks();
   }
 

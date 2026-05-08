@@ -13,12 +13,12 @@ import { inject } from '@angular/core';
 export class DrawerComponent {
   visible = model(false);
   position = input<'left' | 'right'>('left');
-  onDrawerClosed = output<string>();
+  drawerClosed = output<string>();
   router = inject(Router);
 
   navItems = [
-    { label: 'Explore', icon: 'pi-compass', route: '/' },
-    { label: 'History', icon: 'pi-history', route: '/favourites' },
+    { label: 'Search', icon: 'pi pi-search', route: '/' },
+    { label: 'Explore', icon: 'pi pi-compass', route: '/explore' },
   ];
 
   navigate(route: string) {
