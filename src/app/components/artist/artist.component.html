@@ -1,0 +1,89 @@
+<app-nav></app-nav>
+@if (artist) {
+  <div class="p-6">
+    <div class="flex flex-col items-center m-8">
+      <img
+        [src]="artist.picture_medium"
+        [alt]="artist.name + ' name'"
+        class="w-40 h-40 rounded-full object-cover"
+        style="border: 1px solid var(--p-inputtext-border-color)"
+      />
+      <h3 class="text-xl font-semibold m-[2%]">{{ artist.name }}</h3>
+    </div>
+
+    @if (albums && albums.length) {
+      <section class="mb-8">
+        <h2 class="text-lg font-semibold mb-3 opacity-60">Albums</h2>
+        <div class="flex gap-4 overflow-x-auto pb-2">
+          @for (album of albums; track album.id) {
+            <div
+              class="flex flex-col gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
+              style="width: 120px"
+              (click)="router.navigate(['/album', album.id])"
+              role="button"
+              tabindex="0"
+              (keypress.enter)="router.navigate(['/album', album.id])"
+            >
+              <img
+                [src]="album.cover_medium"
+                class="w-full rounded-xl object-cover"
+                style="border: 1px solid var(--p-inputtext-border-color)"
+                [alt]="album.title + ' image'"
+              />
+              <span class="text-xs font-medium truncate">{{ album.title }}</span>
+              <span class="text-xs opacity-50 truncate">{{ album.artist?.name }}</span>
+            </div>
+          }
+        </div>
+      </section>
+    }
+
+    @if (tracks && tracks.length) {
+      <section class="mb-8">
+        <h2 class="text-lg font-semibold mb-3 opacity-60">Tracks</h2>
+        <div
+          class="flex flex-col"
+          style="
+            border: 1px solid var(--p-inputtext-border-color);
+            border-radius: 16px;
+            overflow: hidden;
+          "
+        >
+          @for (track of tracks; track track.id; let last = $last) {
+            <div
+              class="flex items-center gap-4 px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
+              [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
+            >
+              <img
+                [src]="track.album.cover_small"
+                class="w-10 h-10 rounded-lg object-cover"
+                [alt]="track.album.title"
+              />
+              <div
+                class="flex flex-col flex-1 min-w-0"
+                (click)="playTrack(track)"
+                role="button"
+                tabindex="0"
+                (keypress.enter)="playTrack(track)"
+              >
+                <span class="text-sm font-medium truncate">{{ track.title }}</span>
+                <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
+              </div>
+              <span class="text-xs opacity-40">{{ formatDuration(track.duration) }}</span>
+            </div>
+          }
+        </div>
+      </section>
+    }
+  </div>
+} @else {
+  @defer (on timer(3s)) {
+    <div class="flex items-center justify-center h-64 opacity-40">
+      <span class="text-sm">No results yet</span>
+    </div>
+  } @placeholder {
+    <div class="flex justify-center items-center w-full min-h-screen">
+      <p-progress-spinner aria-label="Loading"></p-progress-spinner>
+    </div>
+  }
+}

@@ -1,0 +1,129 @@
+<app-nav />
+<div class="p-6">
+  @if (isLoading()) {
+    <div class="flex items-center justify-center h-64 opacity-40">
+      <span class="text-sm">Loading...</span>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="flex flex-col items-center justify-center h-64 gap-2 opacity-50">
+      <i class="pi pi-exclamation-circle" style="font-size: 24px"></i>
+      <span class="text-sm">Something went wrong, please try again.</span>
+    </div>
+  }
+
+  @if (!isLoading() && !error() && exploreData) {
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold mb-3 opacity-60">Trending Artists</h2>
+      <div class="flex gap-4 overflow-x-auto pb-2 scroll-container">
+        @for (artist of artists; track artist.id; let i = $index) {
+          <div
+            class="flex flex-col items-center gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
+            (click)="router.navigate(['/artist', artist.id])"
+            role="button"
+            tabindex="0"
+            (keypress.enter)="router.navigate(['/artist', artist.id])"
+          >
+            <div class="relative">
+              <img
+                [src]="artist.picture_medium"
+                [alt]="artist.name"
+                loading="lazy"
+                class="w-40 h-40 rounded-full object-cover"
+                style="border: 1px solid var(--p-inputtext-border-color)"
+              />
+              <span
+                class="absolute bottom-1 right-1 text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center"
+                style="
+                  background: var(--p-inputtext-background);
+                  border: 1px solid var(--p-inputtext-border-color);
+                  font-size: 10px;
+                "
+              >
+                {{ i + 1 }}
+              </span>
+            </div>
+            <span class="text-xs font-medium text-center w-16 truncate">{{ artist.name }}</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="mb-8">
+      <h2 class="text-lg font-semibold mb-3 opacity-60">Trending Albums</h2>
+      <div class="flex gap-4 overflow-x-auto pb-2 scroll-container">
+        @for (album of albums; track album.id) {
+          <div
+            class="flex flex-col gap-2 cursor-pointer hover:opacity-70 transition-opacity shrink-0"
+            style="width: 120px"
+            (click)="router.navigate(['/album', album.id])"
+            role="button"
+            tabindex="0"
+            (keypress.enter)="router.navigate(['/album', album.id])"
+          >
+            <img
+              [src]="album.cover_medium"
+              [alt]="album.title"
+              loading="lazy"
+              class="w-full rounded-xl object-cover"
+              style="border: 1px solid var(--p-inputtext-border-color)"
+            />
+            <span class="text-xs font-medium truncate">{{ album.title }}</span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="mb-4">
+      <h2 class="text-lg font-semibold mb-3 opacity-60">Trending Tracks</h2>
+      <div
+        class="flex flex-col"
+        style="
+          border: 1px solid var(--p-inputtext-border-color);
+          border-radius: 16px;
+          overflow: hidden;
+        "
+      >
+        @for (track of pagedTracks; track track.id; let last = $last) {
+          <div
+            class="flex items-center gap-4 px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
+            [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
+            (click)="playTrack(track)"
+            (mouseenter)="hoveredTrackId = track.id"
+            (mouseleave)="hoveredTrackId = null"
+            role="button"
+            tabindex="0"
+            (keypress.enter)="playTrack(track)"
+          >
+            <img
+              [src]="track.album.cover_small"
+              [alt]="track.title"
+              loading="lazy"
+              class="w-10 h-10 rounded-lg object-cover"
+            />
+            <div class="flex flex-col flex-1 min-w-0">
+              <span class="text-sm font-medium truncate">{{ track.title }}</span>
+              <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
+            </div>
+            <span class="text-xs opacity-40 w-10 text-right">
+              @if (hoveredTrackId === track.id) {
+                <i class="pi pi-play" style="font-size: 13px"></i>
+              } @else {
+                {{ formatDuration(track.duration) }}
+              }
+            </span>
+          </div>
+        }
+      </div>
+    </section>
+
+    <p-paginator
+      [first]="first"
+      [rows]="rows"
+      [totalRecords]="allTracks.length"
+      (onPageChange)="onPageChange($event)"
+      [style]="{ background: 'transparent' }"
+    />
+  }
+</div>
