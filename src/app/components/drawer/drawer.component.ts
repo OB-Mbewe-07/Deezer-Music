@@ -17,8 +17,8 @@ export class DrawerComponent {
   router = inject(Router);
 
   navItems = [
-    { label: 'Explore', icon: 'pi-compass', route: '/' },
-    { label: 'History', icon: 'pi-history', route: '/favourites' },
+    { label: 'Search', icon: 'pi pi-search', route: '/' },
+    { label: 'Explore', icon: 'pi pi-compass', route: '/explore' },
   ];
 
   navigate(route: string) {

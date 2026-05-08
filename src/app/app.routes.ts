@@ -26,7 +26,7 @@ export const routes: Routes = [
   },
   {
     path: 'explore',
-    loadComponent: () => import('./components/explore/explore.component').then(m => m.ExploreComponent)
+    loadComponent: () => import('./components/explore/explore.component').then(m => m.ExploreComponent),
   },
   {
     path: '**',
