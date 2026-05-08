@@ -54,8 +54,18 @@
               class="flex items-center gap-4 px-4 py-3 cursor-pointer hover:opacity-70 transition-opacity"
               [style.border-bottom]="last ? 'none' : '1px solid var(--p-inputtext-border-color)'"
             >
-              <img [src]="track.album.cover_small" class="w-10 h-10 rounded-lg object-cover" [alt]="track.album.title"/>
-              <div class="flex flex-col flex-1 min-w-0" (click)="playTrack(track)">
+              <img
+                [src]="track.album.cover_small"
+                class="w-10 h-10 rounded-lg object-cover"
+                [alt]="track.album.title"
+              />
+              <div
+                class="flex flex-col flex-1 min-w-0"
+                (click)="playTrack(track)"
+                role="button"
+                tabindex="0"
+                (keypress.enter)="playTrack(track)"
+              >
                 <span class="text-sm font-medium truncate">{{ track.title }}</span>
                 <span class="text-xs opacity-50 truncate">{{ track.artist.name }}</span>
               </div>
@@ -67,7 +77,7 @@
     }
   </div>
 } @else {
-   @defer (on timer(3s)) {
+  @defer (on timer(3s)) {
     <div class="flex items-center justify-center h-64 opacity-40">
       <span class="text-sm">No results yet</span>
     </div>

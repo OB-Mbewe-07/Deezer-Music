@@ -13,7 +13,7 @@ import { inject } from '@angular/core';
 export class DrawerComponent {
   visible = model(false);
   position = input<'left' | 'right'>('left');
-  onDrawerClosed = output<string>();
+  drawerClosed = output<string>();
   router = inject(Router);
 
   navItems = [

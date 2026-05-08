@@ -1,50 +1,52 @@
-<p-drawer
-      [(visible)]="visible"
-      [position]="position()"
-      [modal]="false"
-    >
-      <ng-template #header>
-        <div class="flex items-center gap-2">
-          <div class="flex">
-            <img
-              src="https://img.icons8.com/?size=40&id=uEdXEgELNafT&format=png&color=000000"
-              alt="logo"
-              loading="eager"
-            />
-            <img
-              src="https://img.icons8.com/?size=40&id=zQBiTJTC1Gj0&format=png&color=000000"
-              alt="logo"
-              loading="eager"
-            />
-          </div>
-          <span class="font-semibold text-sm">Not Spotify</span>
-        </div>
-      </ng-template>
-
-      <div class="flex flex-col gap-2 mt-4">
-        @for (item of navItems; track item.label) {
-          <div
-            class="flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer hover:opacity-70 transition-opacity"
-            [style]="
-              router.url === item.route ? 'border: 1px solid var(--p-inputtext-border-color)' : ''
-            "
-            (click)="navigate(item.route); visible.set(false)"
-          >
-            <i [class]="'pi ' + item.icon" style="font-size: 16px;"></i>
-            <span class="text-sm font-medium">{{ item.label }}</span>
-          </div>
-        }
+<p-drawer [(visible)]="visible" [position]="position()" [modal]="false">
+  <ng-template #header>
+    <div class="flex items-center gap-2">
+      <div class="flex">
+        <img
+          src="https://img.icons8.com/?size=40&id=uEdXEgELNafT&format=png&color=000000"
+          alt="logo"
+          loading="eager"
+        />
+        <img
+          src="https://img.icons8.com/?size=40&id=zQBiTJTC1Gj0&format=png&color=000000"
+          alt="logo"
+          loading="eager"
+        />
       </div>
+      <span class="font-semibold text-sm">Not Spotify</span>
+    </div>
+  </ng-template>
 
-      <ng-content />
+  <div class="flex flex-col gap-2 mt-4">
+    @for (item of navItems; track item.label) {
+      <div
+        class="flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer hover:opacity-70 transition-opacity"
+        [style]="
+          router.url === item.route ? 'border: 1px solid var(--p-inputtext-border-color)' : ''
+        "
+        (click)="navigate(item.route); visible.set(false)"
+        role="button"
+        tabindex="0"
+        (keypress.enter)="router.navigate(['/artist', artist.id])"
+      >
+        <i [class]="'pi ' + item.icon" style="font-size: 16px"></i>
+        <span class="text-sm font-medium">{{ item.label }}</span>
+      </div>
+    }
+  </div>
 
-      <ng-template #footer>
-        <div
-          class="flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer hover:opacity-70 transition-opacity"
-          (click)="navigate('/profile'); visible.set(false)"
-        >
-          <i class="pi pi-user" style="font-size: 16px;"></i>
-          <span class="text-sm font-medium">Profile</span>
-        </div>
-      </ng-template>
-    </p-drawer>
+  <ng-content />
+
+  <ng-template #footer>
+    <div
+      class="flex items-center gap-3 px-4 py-3 rounded-2xl cursor-pointer hover:opacity-70 transition-opacity"
+      (click)="navigate('/profile'); visible.set(false)"
+      role="button"
+      tabindex="0"
+      (keypress.enter)="navigate('/profile'); visible.set(false)"
+    >
+      <i class="pi pi-user" style="font-size: 16px"></i>
+      <span class="text-sm font-medium">Profile</span>
+    </div>
+  </ng-template>
+</p-drawer>

@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { NotFoundComponent } from './components/not-found/not-found.component';
-import { AlbumComponent } from './components/album/album.component';
 import { albumResolver } from './shared/resolver/route-resolver';
 
 

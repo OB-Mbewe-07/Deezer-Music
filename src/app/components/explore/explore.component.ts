@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { MusicFormatService } from '../../shared/services/music-explore/music-explore-format.service';
 import { NowPlayingService } from '../../shared/services/music-player/music-player';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { PaginatorState } from 'primeng/paginator';
 
 @Component({
   selector: 'app-explore',
@@ -61,9 +62,9 @@ export class ExploreComponent implements OnInit {
     this.pagedTracks = this.allTracks.slice(this.first, this.first + this.rows);
   }
 
-  onPageChange(event: any): void {
-    this.first = event.first;
-    this.rows = event.rows;
+  onPageChange(event: PaginatorState): void {
+    this.first = event.first ?? 0;
+    this.rows = event.rows ?? 8;
     this.updatePagedTracks();
   }
 

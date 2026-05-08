@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
-import { FloatLabel } from 'primeng/floatlabel';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DrawerComponent } from '../drawer/drawer.component';
@@ -66,14 +65,12 @@ import { DrawerComponent } from '../drawer/drawer.component';
   imports: [MenubarModule, FormsModule, DrawerComponent],
 })
 export class NavbarComponent {
-  search: string = '';
+  search = '';
   drawerVisible = false;
   router = inject(Router);
   onSearch() {
     const query = this.search.trim();
     if (!query) return;
-
-    this.drawerVisible = false;
 
     this.router.navigate(['/search-results'], {
       queryParams: { q: query },
