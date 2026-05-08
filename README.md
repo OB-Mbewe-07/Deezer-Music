@@ -179,3 +179,30 @@ The app uses a proxy during development to forward requests to the Deezer API. T
   }
 }
 ```
+
+## Deployment
+
+The app is deployed on Vercel. Since the Angular dev proxy only works locally, a `vercel.json` file at the root handles API proxying in production:
+
+```json
+{
+  "rewrites": [
+    {
+      "source": "/deezer-api/:path*",
+      "destination": "https://api.deezer.com/:path*"
+    }
+  ]
+}
+```
+
+This rewrites all `/deezer-api/*` requests to `https://api.deezer.com/*` at Vercel's edge, avoiding CORS issues in production.
+
+link: `https://not-spotify-ten.vercel.app/`
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Landing](public/Screenshot%202026-05-08%20at%2012.39.06.png) | ![Explore](public/Screenshot%202026-05-08%20at%2012.39.21.png) |
+| ![Search](public/Screenshot%202026-05-08%20at%2012.40.00.png) | ![Artist](public/Screenshot%202026-05-08%20at%2012.40.12.png) |
+| ![Album](public/Screenshot%202026-05-08%20at%2012.40.37.png) | ![Profile](public/Screenshot%202026-05-08%20at%2012.40.55.png) |
